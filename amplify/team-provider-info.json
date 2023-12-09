@@ -1,0 +1,33 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-nursd-dev-110136-authRole",
+      "UnauthRoleArn": "arn:aws:iam::468530787588:role/amplify-nursd-dev-110136-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::468530787588:role/amplify-nursd-dev-110136-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-nursd-dev-110136-deployment",
+      "UnauthRoleName": "amplify-nursd-dev-110136-unauthRole",
+      "StackName": "amplify-nursd-dev-110136",
+      "StackId": "arn:aws:cloudformation:us-east-2:468530787588:stack/amplify-nursd-dev-110136/648743d0-5dee-11ee-b997-06d785248fe3",
+      "AmplifyAppId": "dd6mw2cx7ryna"
+    },
+    "categories": {
+      "function": {
+        "nursde08722f9": {
+          "deploymentBucketName": "amplify-nursd-dev-110136-deployment",
+          "s3Key": "amplify-builds/nursde08722f9-61497932796b68323162-build.zip"
+        },
+        "restapinotificationlambda": {
+          "deploymentBucketName": "amplify-nursd-dev-110136-deployment",
+          "s3Key": "amplify-builds/restapinotificationlambda-36782b775156756a3553-build.zip"
+        }
+      },
+      "auth": {
+        "nursd": {}
+      },
+      "storage": {
+        "s3nursdstorage49aaec2c": {}
+      }
+    }
+  }
+}

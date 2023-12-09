@@ -1,0 +1,14 @@
+{
+  "resourceName": "s3nursdstorage49aaec2c",
+  "bucketName": "nursd-storage-49aaec2c",
+  "policyUUID": "873bf164",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "version": "1",
+  "cognitoConfig": {
+    "identityPoolName": "testAuthIdentityPool",
+    "allowUnauthenticatedIdentities": false,
+    "resourceNameTruncated": "nursd63ecd382",
+    "userPoolName": "nursd",
+    "autoVerifiedAttributes": [
+      "email"
+    ],
+    "mfaConfiguration": "OFF",
+    "mfaTypes": [
+      "SMS Text Message"
+    ],
+    "smsAuthenticationMessage": "Your authentication code is {####}",
+    "smsVerificationMessage": "Your verification code is {####}",
+    "emailVerificationSubject": "*Confidential:Verification code Information - NURSD Health Platform",
+    "emailVerificationMessage": "Welcome to NURSD Health! Glad to have you on board.<br>\n\nYour account has been created on the NURSD Health Platform.<br>\n\nVerification code: {####}<br>\n\nFor any technical support enquiries please email us at support@nursdhealth.com.<br>\n\nBest,<br>\n\nNURSD Health Team<br>\n \nThe information contained in this message is privileged and confidential. Should you obtain this information in error, please send a reply notifying the sender that you have received this email and then delete the email from your system immediately. You are hereby notified that any unauthorized distribution of this material to anyone other than the intended recipient is illegal and will be fully prosecuted under the LAW.",
+    "defaultPasswordPolicy": false,
+    "passwordPolicyMinLength": 8,
+    "passwordPolicyCharacters": [],
+    "requiredAttributes": [],
+    "aliasAttributes": [],
+    "userpoolClientGenerateSecret": false,
+    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientWriteAttributes": [],
+    "userpoolClientReadAttributes": [],
+    "userpoolClientLambdaRole": "nursd63ecd382_userpoolclient_lambda_role",
+    "userpoolClientSetAttributes": false,
+    "sharedId": "63ecd382",
+    "resourceName": "nursd",
+    "authSelections": "identityPoolAndUserPool",
+    "serviceName": "Cognito",
+    "usernameAttributes": [
+      "email"
+    ],
+    "useDefault": "manual",
+    "userPoolGroups": false,
+    "userPoolGroupList": [],
+    "adminQueries": false,
+    "thirdPartyAuth": false,
+    "authProviders": [],
+    "usernameCaseSensitive": false,
+    "useEnabledMfas": true,
+    "authRoleArn": {
+      "Fn::GetAtt": [
+        "AuthRole",
+        "Arn"
+      ]
+    },
+    "unauthRoleArn": {
+      "Fn::GetAtt": [
+        "UnauthRole",
+        "Arn"
+      ]
+    },
+    "breakCircularDependency": true,
+    "dependsOn": [],
+    "hostedUI": false
+  }
+}

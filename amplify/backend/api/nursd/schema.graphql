@@ -1,0 +1,435 @@
+type ReleaseVersion @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  nursdConnectIOS: String
+  nursdFlowIOS: String
+  nursdCareIOS: String
+  nursdConnectAndroid: String
+  nursdFlowAndroid: String
+  nursdCareAndroid: String
+}
+
+type ReferencesDetailNurse @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  reference_name: String
+  reference_relationship: String
+  reference_position: String
+  reference_date_complete: String
+  reference_email: String
+  reference_contact_number: String
+  reference_with_your_work_org: String
+  reference_file: String
+  reference_verified: Boolean
+  nurseTableID: String
+  reference_verified_comments: String
+  status: String
+}
+
+type DocumentDetailsNurse @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  document_type: String
+  document_name: String
+  issuing_body: String
+  expiration_date: String
+  document_front_image: String
+  document_back_image: String
+  document_upload_with_all_pages: [String]
+  document_verified: Boolean
+  nurseTableID: String
+  status: String
+  verification_note: String
+  file: String
+}
+
+type NurseCancelObject {
+  nurseId: String
+  nurseName: String
+  cancelNote: String
+}
+
+type OrganisationNotificationTable @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  imageURL: String
+  title: String
+  content: String
+  navigationScreen: String
+  navigationData: AWSJSON
+  visited: Boolean
+  visitNotification: Boolean
+  notificationDotTypeColor: String
+  url: String
+  organisationTableID: String
+}
+
+type LocationsDetails {
+  location_id: String
+  location_country: String
+  location_state: String
+  location_city: String
+  location_zipCode: Int
+  location_fullAddress: String
+}
+
+type Organisation @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  emailId: String
+  phoneNumber: String
+  organisationName: String
+  locations: [LocationsDetails]
+  mobileId: String
+}
+
+type CustomerPatient @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  patient_first_name: String
+  patient_last_name: String
+  patient_address_line_1: String
+  patient_address_line_2: String
+  patient_city_id: String
+  patient_city: String
+  patient_state: String
+  patient_zip_code: String
+  patient_gender: String
+  patient_phone: String
+  patient_email: String
+  organization: String
+  location_id: String
+  patient_phone_2: String
+}
+
+type FacilityNotificationTable @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  imageURL: String
+  title: String
+  content: String
+  navigationScreen: String
+  navigationData: AWSJSON
+  visited: Boolean
+  visitNotification: Boolean
+  notificationDotTypeColor: String
+  url: String
+  facilityTableID: String
+}
+
+type NurseNotificationTable @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  imageURL: String
+  title: String
+  content: String
+  navigationScreen: String
+  navigationData: AWSJSON
+  visited: Boolean
+  visitNotification: Boolean
+  notificationDotTypeColor: String
+  url: String
+  nurseTableID: String
+}
+
+type TimeOffFacility @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  timeOffReason: String
+  startDate: String
+  startTime: String
+  endDate: String
+  endTime: String
+  alternateContactNumber: String
+  phoneNumber: String
+  comments: String
+  facilityTableID: String
+  status: String
+  organization: String
+  location_id: String
+}
+
+type TimeOffNurse @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  timeOffReason: String
+  startDate: String
+  startTime: String
+  endDate: String
+  endTime: String
+  alternateContactNumber: String
+  phoneNumber: String
+  comments: String
+  nurseTableID: String
+  approvedManager: String
+  notApprovedManager: String
+  cancelManager: String
+  nurseCancelNotes: String
+  status: String
+  organization: String
+  location_id: String
+}
+
+type JobTemplate @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  licenseType: [String]
+  shiftTitle: String
+  specialty: String
+  certification: [String]
+  yearOfExperience: String
+  expiration: String
+  startDate: String
+  endDate: String
+  startTime: String
+  endTime: String
+  break: String
+  selectCustomer: String
+  unit: String
+  floor: String
+  untitledfield: String
+  fullAddress: String
+  latitude: String
+  longitude: String
+  baseRate: String
+  enableBid: Boolean
+  notes: String
+  jobType: String
+  maxBidAmount: String
+  jobShiftTimingType: String
+  jobTiming: String
+  jobTemplateName: String!
+  autoAcceptedEnable: Boolean
+  EMRorEHRExperience: [String]
+  certificationRequired: Boolean
+  specialtyRequired: Boolean
+  experienceRequired: Boolean
+  emrehrRequired: Boolean
+  customerVisibility: Boolean
+  organization: String
+  baseRateVisibility: Boolean
+  location_id: String
+  jobPostingTableFacilityTableId: String
+}
+
+type QuestionMessageItem @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  text: String
+  askquestiontableID: ID! @index(name: "byAskQuestionTable")
+  nurseTableID: String
+  facilityTableID: String
+}
+
+type AskQuestionTable @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  senderPublicKey: String
+  senderSecretKey: String
+  receiverPublicKey: String
+  receiverSecretKey: String
+  NurseTable: NurseTable @hasOne
+  FacilityTable: FacilityTable @hasOne
+  QuestionMessageItems: [QuestionMessageItem] @hasMany(indexName: "byAskQuestionTable", fields: ["id"])
+  jobId: String
+}
+
+type JobBitTable @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  bitAmount: String
+  jobBitTableJobPostingTableId: String
+  jobBitTableNurseTableId: String
+}
+
+type JobPostingTable @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  licenseType: [String]
+  shiftTitle: String
+  specialty: String
+  certification: [String]
+  yearOfExperience: String
+  expiration: String
+  startDate: String
+  endDate: String
+  startTime: String
+  endTime: String
+  break: String
+  selectCustomer: String
+  unit: String
+  floor: String
+  fullAddress: String
+  latitude: String
+  longitude: String
+  baseRate: String
+  enableBid: Boolean
+  notes: String
+  jobType: String
+  jobStatus: String
+  jobFinalSelectionNurseId: String
+  jobBitFinalAmount: String
+  jobAcceptedNurses: [String]
+  autoAcceptedEnable: Boolean
+  checkInTime: String
+  checkInFullAddress: String
+  checkInLatitude: String
+  checkInLongitude: String
+  checkOutTime: String
+  checkOutFullAddress: String
+  checkOutLatitude: String
+  checkOutLongitude: String
+  checkOutMessage: String
+  jobShiftTimingType: String
+  maxBidAmount: String
+  jobDuration: String
+  jobTiming: String
+  jobDays: String
+  EMRorEHRExperience: [String]
+  noShowReason: String
+  noShowReasonAttachment: String
+  neverCheckOutReason: String
+  neverCheckOutReasonAttachment: String
+  pendingOrNoShowFacilityDecideMessage: String
+  pendingOrNoShowFacilityDecideStatus: Boolean
+  certificationRequired: Boolean
+  specialtyRequired: Boolean
+  experienceRequired: Boolean
+  emrehrRequired: Boolean
+  customerVisibility: Boolean
+  organization: String
+  location_id: String
+  worked_hours: String
+  total_payment: String
+  nurseCancelNotes: [NurseCancelObject]
+  nurseSwapNotes: String
+  baseRateVisibility: Boolean
+  jobPostingTableFacilityTableId: String
+  manager_review_comments: String
+  approved_manager: String
+  closed_by: String
+  timeAdjustByNurse: Boolean
+  timeAdjustByFacility: Boolean
+  checkInTimeNurse: String
+  checkInFullAddressNurse: String
+  checkInLatitudeNurse: String
+  checkInLongitudeNurse: String
+  checkOutTimeNurse: String
+  checkOutFullAddressNurse: String
+  checkOutLatitudeNurse: String
+  checkOutLongitudeNurse: String
+}
+
+type MessageItem @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  text: String!
+  sender: String
+  receiver: String
+  status: String
+  image: String
+  audio: String
+  chathistorytableID: ID! @index(name: "byChatHistoryTable")
+  nurseTableID: String
+  facilityTableID: String
+}
+
+type ChatHistoryTable @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  NurseTable: NurseTable @hasOne
+  FacilityTable: FacilityTable @hasOne
+  MessageItems: [MessageItem] @hasMany(indexName: "byChatHistoryTable", fields: ["id"])
+  LastMessageItem: MessageItem @hasOne
+  senderPublicKey: String
+  senderSecretKey: String
+  receiverPublicKey: String
+  receiverSecretKey: String
+}
+
+type FacilityTable @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  emailId: String
+  phoneNumber: String
+  mobileId: String
+  emailVerified: Boolean
+  fullAddress: String
+  latitude: String
+  longitude: String
+  facilityVerified: Boolean
+  profileImage: String
+  organization: String
+  location_id: String
+}
+
+type JobPreferences {
+  days: [String]
+  duration: [String]
+  timing: [String]
+  minDistance: String
+  maxDistance: String
+  minRate: String
+  maxRate: String
+  notLicensedStateHideJobs: Boolean
+  showJobs: String
+  preferenceOption: Boolean
+}
+
+type UploadDocument {
+  proofType: String
+  issuingAuthority: String
+  issueDate: String
+  expirationDate: String
+  file: String
+}
+
+type WorkExperienceDetail {
+  employerName: String
+  positionTitle: String
+  positionType: String
+  unit: String
+  hourseWorkedWeek: String
+  currentlyWorkingHere: Boolean
+  endDate: String
+  startDate: String
+}
+
+type EducationDetail {
+  educationType: String
+  educationDate: String
+}
+
+type CertificationDetail {
+  certificationType: String
+  certificationDate: String
+}
+
+type NurseTable @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  firstName: String
+  lastName: String
+  emailId: String
+  phoneNumber: String
+  gender: String
+  dateOfBirth: String
+  primaryState: String
+  primaryLicenseType: String
+  primaryLicenseMultiPrivilege: Boolean
+  clinicalLicenseNumber: String
+  clinicalLicenseExpirationDate: String
+  specialty: [String]
+  registeredWithAn: String
+  employeeId: String
+  employeeName: String
+  certificationDetails: [CertificationDetail]
+  educationDetails: [EducationDetail]
+  skills: [String]
+  fullAddress: String
+  latitude: String
+  longitude: String
+  currentLatitude: String
+  currentLongitude: String
+  EMRorEHRExperience: [String]
+  workExperienceDetails: [WorkExperienceDetail]
+  uploadDocuments: [UploadDocument]
+  jobPreferences: JobPreferences
+  profileImage: String
+  emailVerified: Boolean
+  mobileId: String
+  nurseVerified: Boolean
+  nurseLoginControl: Boolean
+  organization: String
+  location_id: String
+  nurseAppAcceControl: Boolean
+}
+
+type UserTable @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  email: String!
+  roll: String!
+}
+ 

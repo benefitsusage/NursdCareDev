@@ -1,0 +1,51 @@
+{
+  "permissions": {
+    "api": {
+      "nursd": [
+        "Query",
+        "Mutation",
+        "Subscription"
+      ]
+    },
+    "auth": {
+      "nursd": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    },
+    "storage": {
+      "FacilityNotificationTable:@model(appsync)": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ],
+      "NurseNotificationTable:@model(appsync)": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ],
+      "FacilityTable:@model(appsync)": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ],
+      "NurseTable:@model(appsync)": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  },
+  "lambdaLayers": [
+    {
+      "type": "ExternalLayer",
+      "arn": "arn:aws:lambda:us-east-2:468530787588:layer:axios:1"
+    }
+  ]
+}
