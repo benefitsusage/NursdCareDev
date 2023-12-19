@@ -456,10 +456,10 @@ const Profile = (props) => {
                   }}
                 >
                   <Text style={{ fontWeight: "500", fontSize: 12 }}>
-                    Calendar & Availablity
+                    Calendar & Availability
                   </Text>
                 </View>
-                <View
+                {/* <View
                   style={{
                     flexDirection: "row",
                     justifyContent: "space-between",
@@ -524,7 +524,7 @@ const Profile = (props) => {
                       Time Off
                     </Text>
                   </View>
-                </View>
+                </View> */}
                 <CalendarView userID={userId} />
               </View>
             )}

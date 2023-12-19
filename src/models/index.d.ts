@@ -386,6 +386,7 @@ type EagerCustomerPatient = {
   readonly organization?: string | null;
   readonly location_id?: string | null;
   readonly patient_phone_2?: string | null;
+  readonly active?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -410,6 +411,7 @@ type LazyCustomerPatient = {
   readonly organization?: string | null;
   readonly location_id?: string | null;
   readonly patient_phone_2?: string | null;
+  readonly active?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -663,6 +665,7 @@ type EagerJobTemplate = {
   readonly baseRateVisibility?: boolean | null;
   readonly location_id?: string | null;
   readonly jobPostingTableFacilityTableId?: string | null;
+  readonly startDateTimeStamp?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -710,6 +713,7 @@ type LazyJobTemplate = {
   readonly baseRateVisibility?: boolean | null;
   readonly location_id?: string | null;
   readonly jobPostingTableFacilityTableId?: string | null;
+  readonly startDateTimeStamp?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -911,6 +915,7 @@ type EagerJobPostingTable = {
   readonly checkOutFullAddressNurse?: string | null;
   readonly checkOutLatitudeNurse?: string | null;
   readonly checkOutLongitudeNurse?: string | null;
+  readonly startDateTimeStamp?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -994,6 +999,7 @@ type LazyJobPostingTable = {
   readonly checkOutFullAddressNurse?: string | null;
   readonly checkOutLatitudeNurse?: string | null;
   readonly checkOutLongitudeNurse?: string | null;
+  readonly startDateTimeStamp?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -1054,19 +1060,16 @@ type EagerChatHistoryTable = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly NurseTable?: NurseTable | null;
-  readonly FacilityTable?: FacilityTable | null;
   readonly MessageItems?: (MessageItem | null)[] | null;
-  readonly LastMessageItem?: MessageItem | null;
   readonly senderPublicKey?: string | null;
   readonly senderSecretKey?: string | null;
   readonly receiverPublicKey?: string | null;
   readonly receiverSecretKey?: string | null;
+  readonly chatHistoryTableFacilityTableId?: string | null;
+  readonly chatHistoryTableNurseTableId?: string | null;
+  readonly chatHistoryTableLastMessageItemId?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly chatHistoryTableNurseTableId?: string | null;
-  readonly chatHistoryTableFacilityTableId?: string | null;
-  readonly chatHistoryTableLastMessageItemId?: string | null;
 }
 
 type LazyChatHistoryTable = {
@@ -1075,19 +1078,16 @@ type LazyChatHistoryTable = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly NurseTable: AsyncItem<NurseTable | undefined>;
-  readonly FacilityTable: AsyncItem<FacilityTable | undefined>;
   readonly MessageItems: AsyncCollection<MessageItem>;
-  readonly LastMessageItem: AsyncItem<MessageItem | undefined>;
   readonly senderPublicKey?: string | null;
   readonly senderSecretKey?: string | null;
   readonly receiverPublicKey?: string | null;
   readonly receiverSecretKey?: string | null;
+  readonly chatHistoryTableFacilityTableId?: string | null;
+  readonly chatHistoryTableNurseTableId?: string | null;
+  readonly chatHistoryTableLastMessageItemId?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly chatHistoryTableNurseTableId?: string | null;
-  readonly chatHistoryTableFacilityTableId?: string | null;
-  readonly chatHistoryTableLastMessageItemId?: string | null;
 }
 
 export declare type ChatHistoryTable = LazyLoading extends LazyLoadingDisabled ? EagerChatHistoryTable : LazyChatHistoryTable
@@ -1114,6 +1114,9 @@ type EagerFacilityTable = {
   readonly profileImage?: string | null;
   readonly organization?: string | null;
   readonly location_id?: string | null;
+  readonly password?: string | null;
+  readonly facilityLoginControl?: boolean | null;
+  readonly facilityAppAccessControl?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -1136,6 +1139,9 @@ type LazyFacilityTable = {
   readonly profileImage?: string | null;
   readonly organization?: string | null;
   readonly location_id?: string | null;
+  readonly password?: string | null;
+  readonly facilityLoginControl?: boolean | null;
+  readonly facilityAppAccessControl?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -1186,7 +1192,8 @@ type EagerNurseTable = {
   readonly nurseLoginControl?: boolean | null;
   readonly organization?: string | null;
   readonly location_id?: string | null;
-  readonly nurseAppAcceControl?: boolean | null;
+  readonly nurseAppAccessControl?: boolean | null;
+  readonly password?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -1231,7 +1238,8 @@ type LazyNurseTable = {
   readonly nurseLoginControl?: boolean | null;
   readonly organization?: string | null;
   readonly location_id?: string | null;
-  readonly nurseAppAcceControl?: boolean | null;
+  readonly nurseAppAccessControl?: boolean | null;
+  readonly password?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

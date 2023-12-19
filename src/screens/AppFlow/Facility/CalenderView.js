@@ -324,9 +324,9 @@ const CalendarScreen = (props) => {
     setLoadingAgenda(false);
   };
 
-  useEffect(() => {
-    getAgendaData(userId, selectedDate);
-  }, [userId, selectedDate]);
+  // useEffect(() => {
+  //   getAgendaData(userId, selectedDate);
+  // }, [userId, selectedDate]);
 
   const getCalender = (jodData, timeOffData) => {
     let mergedArray = jodData?.concat(timeOffData);
@@ -335,72 +335,80 @@ const CalendarScreen = (props) => {
       const { startDate, endDate } = event;
 
       if (event?.shiftTitle) {
-        if (startDate === endDate) {
-          return {
-            [convertDate(startDate)]: {
-              startingDay: true,
-              endingDay: true,
-              marked: true,
-              selected: true,
-              backgroundColor: "blue",
-              color: event?.jobType === "Shift" ? "#2775BD" : "green",
-            },
-          };
-        } else if (startDate !== endDate) {
-          const date1 = new Date(startDate);
-          const date2 = new Date(endDate);
-          const diffInMs = Math.abs(date2 - date1);
-          const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
+        // if (startDate === endDate) {
+        return {
+          [moment(startDate).format("YYYY-MM-DD")]: {
+            startingDay: true,
+            endingDay: true,
+            marked: true,
+            selected: true,
+            backgroundColor: "blue",
+            color:
+              //  event?.jobType === "Shift" ? "#2775BD" : "green",
+              event?.jobStatus === "Unfulfilled" ? "#888" :
+                (event?.jobStatus === "Open" || event?.jobStatus === "Pending Assignment") ? "#e6e600" :
+                  (event?.jobStatus === "Completed") ? "#00b359" :
+                    (event?.jobStatus === "Nurse Assigned" || event?.jobStatus === "In-Progress"
+                      || event?.jobStatus === "Pending Approval") ? "#2775BD" :
+                      (event?.jobStatus === "Missed" || event?.jobStatus === "Pending Clock Out") ? "red" :
+                        "#888",
+          },
+          //   };
+          // } else if (startDate !== endDate) {
+          //   const date1 = new Date(startDate);
+          //   const date2 = new Date(endDate);
+          //   const diffInMs = Math.abs(date2 - date1);
+          //   const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
 
-          const events = {};
-          for (let i = 0; i <= diffInDays; i++) {
-            const date = new Date(date1);
-            date.setDate(date1.getDate() + i);
-            events[convertDate(date)] = {
-              startingDay: i === 0,
-              endingDay: i === diffInDays,
-              marked: i === 0 ? true : i === diffInDays ? true : false,
-              selected: true,
-              backgroundColor: "blue",
-              color: event?.jobType === "Shift" ? "#2775BD" : "green",
-            };
-          }
-          return events;
+          //   const events = {};
+          //   for (let i = 0; i <= diffInDays; i++) {
+          //     const date = new Date(date1);
+          //     date.setDate(date1.getDate() + i + 1);
+          //     events[moment(date).format("YYYY-MM-DD")] = {
+          //       startingDay: i === 0,
+          //       endingDay: i === diffInDays,
+          //       marked: i === 0 ? true : i === diffInDays ? true : false,
+          //       selected: true,
+          //       backgroundColor: "blue",
+          //       color: event?.jobType === "Shift" ? "#2775BD" : "green",
+          //     };
+          //   }
+          //   return events;
         }
       } else {
-        if (startDate === endDate) {
-          return {
-            [convertDate(startDate)]: {
-              startingDay: true,
-              endingDay: true,
-              marked: true,
-              selected: true,
-              backgroundColor: "blue",
-              color: "red",
-            },
-          };
-        } else if (startDate !== endDate) {
-          const date1 = new Date(startDate);
-          const date2 = new Date(endDate);
-          const diffInMs = Math.abs(date2 - date1);
-          const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
+        // if (startDate === endDate) {
+        return {
+          [moment(startDate).format("YYYY-MM-DD")]: {
+            startingDay: true,
+            endingDay: true,
+            marked: true,
+            selected: true,
+            backgroundColor: "blue",
+            color: "red",
+          },
+        };
+        // } else if (startDate !== endDate) {
+        //   const date1 = new Date(startDate);
+        //   const date2 = new Date(endDate);
+        //   const diffInMs = Math.abs(date2 - date1);
+        //   const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
 
-          const events = {};
-          for (let i = 0; i <= diffInDays; i++) {
-            const date = new Date(date1);
-            date.setDate(date1.getDate() + i);
-            events[convertDate(date)] = {
-              startingDay: i === 0,
-              endingDay: i === diffInDays,
-              // marked: true,
-              selected: true,
-              backgroundColor: "blue",
-              color: "red",
-            };
-          }
+        //   const events = {};
+        //   for (let i = 0; i <= diffInDays; i++) {
+        //     const date = new Date(date1);
+        //     date.setDate(date1.getDate() + i + 1);
+        //     events[moment(date).format("YYYY-MM-DD")] = {
+        //       startingDay: i === 0,
+        //       endingDay: i === diffInDays,
+        //       // marked: true,
+        //       selected: true,
+        //       backgroundColor: "blue",
+        //       color: "red",
+        //     };
+        //   }
 
-          return events;
-        }
+        //   return events;
+        // }
       }
     });
     let output = {};

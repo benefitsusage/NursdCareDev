@@ -135,7 +135,8 @@ const CreateNurse = (props) => {
           nurseLoginControl: true,
           organization: props?.route?.params?.data?.organization,
           location_id: props?.route?.params?.data?.location_id,
-          nurseAppAcceControl: false,
+          nurseAppAccessControl: false,
+          password: password
         })
       );
 
@@ -764,13 +765,13 @@ const CreateNurse = (props) => {
               >
                 <Text style={{ textAlign: "center", color: "#737373" }}>
                   {moment(new Date()).format("MM-DD-YYYY") ===
-                  moment(
-                    new Date(nurseState.clinicalLicenseExpirationDate)
-                  ).format("MM-DD-YYYY")
+                    moment(
+                      new Date(nurseState.clinicalLicenseExpirationDate)
+                    ).format("MM-DD-YYYY")
                     ? "Expiration Date"
                     : moment(
-                        new Date(nurseState.clinicalLicenseExpirationDate)
-                      ).format("MM-DD-YYYY")}
+                      new Date(nurseState.clinicalLicenseExpirationDate)
+                    ).format("MM-DD-YYYY")}
                 </Text>
                 <Ionicons name="calendar" size={24} color="#808080" />
               </TouchableOpacity>
@@ -1178,10 +1179,10 @@ const CreateNurse = (props) => {
                   nurseState.primaryLicenseType === "" ||
                   nurseState.password === "" ||
                   address.fullAddress === ""
-                ? Alert.alert("Fill all required fields first")
-                : nurseState?.password?.length < 8
-                ? Alert.alert("At least enter 8 character")
-                : signUp(nurseState.emailId, nurseState.password)
+                  ? Alert.alert("Fill all required fields first")
+                  : nurseState?.password?.length < 8
+                    ? Alert.alert("At least enter 8 character")
+                    : signUp(nurseState.emailId, nurseState.password)
             }
           />
         </View>

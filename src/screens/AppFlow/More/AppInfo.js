@@ -12,8 +12,8 @@ export class AppInfo extends Component {
           backgroundColor: "#fff",
         }}
       >
-        <Text style={{ fontSize: 25, fontWeight: "800" }}>NursdCareDev</Text>
-        <Text style={{ fontSize: 15, color: "#888" }}> version 1.0.7</Text>
+        <Text style={{ fontSize: 25, fontWeight: "800" }}>NursdCare</Text>
+        <Text style={{ fontSize: 15, color: "#888" }}> version 1.0.8</Text>
         <Image
           source={require("../../../../assets/login/NURSD-Flow.png")}
           style={{

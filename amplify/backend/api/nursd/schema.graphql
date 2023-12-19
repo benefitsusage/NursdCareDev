@@ -94,6 +94,7 @@ type CustomerPatient @model @auth(rules: [{allow: public}]) {
   organization: String
   location_id: String
   patient_phone_2: String
+  active: Boolean
 }
 
 type FacilityNotificationTable @model @auth(rules: [{allow: public}]) {
@@ -199,6 +200,7 @@ type JobTemplate @model @auth(rules: [{allow: public}]) {
   baseRateVisibility: Boolean
   location_id: String
   jobPostingTableFacilityTableId: String
+  startDateTimeStamp: String
 }
 
 type QuestionMessageItem @model @auth(rules: [{allow: public}]) {
@@ -303,6 +305,7 @@ type JobPostingTable @model @auth(rules: [{allow: public}]) {
   checkOutFullAddressNurse: String
   checkOutLatitudeNurse: String
   checkOutLongitudeNurse: String
+  startDateTimeStamp: String
 }
 
 type MessageItem @model @auth(rules: [{allow: public}]) {
@@ -320,14 +323,14 @@ type MessageItem @model @auth(rules: [{allow: public}]) {
 
 type ChatHistoryTable @model @auth(rules: [{allow: public}]) {
   id: ID!
-  NurseTable: NurseTable @hasOne
-  FacilityTable: FacilityTable @hasOne
   MessageItems: [MessageItem] @hasMany(indexName: "byChatHistoryTable", fields: ["id"])
-  LastMessageItem: MessageItem @hasOne
   senderPublicKey: String
   senderSecretKey: String
   receiverPublicKey: String
   receiverSecretKey: String
+  chatHistoryTableFacilityTableId: String
+  chatHistoryTableNurseTableId: String
+  chatHistoryTableLastMessageItemId: String
 }
 
 type FacilityTable @model @auth(rules: [{allow: public}]) {
@@ -344,6 +347,9 @@ type FacilityTable @model @auth(rules: [{allow: public}]) {
   profileImage: String
   organization: String
   location_id: String
+  password: String
+  facilityLoginControl: Boolean
+  facilityAppAccessControl: Boolean
 }
 
 type JobPreferences {
@@ -424,7 +430,8 @@ type NurseTable @model @auth(rules: [{allow: public}]) {
   nurseLoginControl: Boolean
   organization: String
   location_id: String
-  nurseAppAcceControl: Boolean
+  nurseAppAccessControl: Boolean
+  password: String
 }
 
 type UserTable @model @auth(rules: [{allow: public}]) {

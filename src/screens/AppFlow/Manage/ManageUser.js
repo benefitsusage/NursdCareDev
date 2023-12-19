@@ -116,7 +116,7 @@ const ManageUser = (props) => {
   const updateUserSuspend = async (data, value) => {
     await DataStore.save(
       NurseTable.copyOf(data, (updated) => {
-        updated.nurseAppAcceControl = value;
+        updated.nurseAppAccessControl = value;
       })
     );
   };

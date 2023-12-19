@@ -82,6 +82,13 @@ const Facility = ({ props, location_id, organization }) => {
     data?.sort((a, b) => a?.name.localeCompare(b?.name));
   }
 
+  const updateUser = async (data, value) => {
+    await DataStore.save(
+      FacilityTable.copyOf(data, (updated) => {
+        updated.facilityLoginControl = value;
+      })
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -140,6 +147,7 @@ const Facility = ({ props, location_id, organization }) => {
                       key={element?.id}
                       element={element}
                       onUserDetailNavigate={onUserDetailNavigate}
+                      updateUser={updateUser}
                     />
                   );
                 })}

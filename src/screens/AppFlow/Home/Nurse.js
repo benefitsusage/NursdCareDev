@@ -71,7 +71,7 @@ const Nurse = ({ props, location_id, organization }) => {
   const updateUserSuspend = async (data, value) => {
     await DataStore.save(
       NurseTable.copyOf(data, (updated) => {
-        updated.nurseAppAcceControl = value;
+        updated.nurseAppAccessControl = value;
       })
     );
   };

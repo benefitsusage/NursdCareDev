@@ -5,7 +5,7 @@ import { S3Image } from "aws-amplify-react-native";
 const { width, height } = Dimensions.get("window");
 const SCREEN_WIDTH = width < height ? width : height;
 
-const FacilityCardDetail = ({ element, onUserDetailNavigate, }) => {
+const FacilityCardDetail = ({ element, onUserDetailNavigate, updateUser }) => {
   return (
     <TouchableOpacity
       onPress={() =>
@@ -80,6 +80,25 @@ const FacilityCardDetail = ({ element, onUserDetailNavigate, }) => {
             </Text>
           </View>
         </View>
+
+        <TouchableOpacity
+          onPress={() =>
+            element?.facilityLoginControl
+              ? updateUser(element, false)
+              : updateUser(element, true)
+          }
+          style={{
+            backgroundColor: element?.facilityLoginControl ? "red" : "#006002",
+            paddingHorizontal: 10,
+            paddingVertical: 5,
+            borderRadius: 10,
+          }}
+        >
+          <Text style={{ color: "#fff", fontWeight: "600", fontSize: 12 }}>
+            {element?.facilityLoginControl ? "DeActivate" : "Activate"}
+            {/* {element?.facilityLoginControl ? "Suspend" : "Un-Suspend"} */}
+          </Text>
+        </TouchableOpacity>
       </View>
       <View
         style={{

@@ -27,7 +27,7 @@ const PendingJobsVisit = (props) => {
   const [dateSort, setDateSort] = useState(null);
 
   useEffect(() => {
-    if (userId !== undefined) {
+    if (userId !== undefined && Platform.OS !== "web") {
       getFacilityJobTotal(userId);
     }
   }, [userId]);
@@ -55,22 +55,38 @@ const PendingJobsVisit = (props) => {
 
   const getFacilityJob = async (id, page) => {
     try {
-      const itemArr = await DataStore.query(
-        JobPostingTable,
-        (item) =>
-          item.and((c) => [
-            c.jobPostingTableFacilityTableId.eq(id),
-            c.jobType.eq("Visit"),
-            c.jobStatus.eq("Pending Clock Out"),
-          ]),
-        {
-          sort: (s) => s.updatedAt(SortDirection.DESCENDING),
-          page: page,
-          limit: 10,
-        }
-      );
-      const updatedData = [...data, ...itemArr];
-      setData(updatedData);
+      if (Platform.OS === "web") {
+        const itemArr = await DataStore.query(
+          JobPostingTable,
+          (item) =>
+            item.and((c) => [
+              c.jobPostingTableFacilityTableId.eq(id),
+              c.jobType.eq("Visit"),
+              c.jobStatus.eq("Pending Clock Out"),
+            ]),
+          {
+            sort: (s) => s.startDateTimeStamp(SortDirection.DESCENDING)
+          }
+        );
+        setData(itemArr);
+      } else {
+        const itemArr = await DataStore.query(
+          JobPostingTable,
+          (item) =>
+            item.and((c) => [
+              c.jobPostingTableFacilityTableId.eq(id),
+              c.jobType.eq("Visit"),
+              c.jobStatus.eq("Pending Clock Out"),
+            ]),
+          {
+            sort: (s) => s.startDateTimeStamp(SortDirection.DESCENDING),
+            page: page,
+            limit: 10,
+          }
+        );
+        const updatedData = [...data, ...itemArr];
+        setData(updatedData);
+      }
       setLoading(false);
       setLoadingBottom(false);
     } catch (error) {
@@ -125,7 +141,7 @@ const PendingJobsVisit = (props) => {
       ) : (
         <ScrollView
           showsVerticalScrollIndicator={false}
-          onScrollEndDrag={handleScrollEnd}
+          onScrollEndDrag={Platform.OS !== "web" && handleScrollEnd}
         >
           {data?.length === 0 ? (
             <View

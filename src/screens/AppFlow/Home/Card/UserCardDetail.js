@@ -124,12 +124,12 @@ const UserCardDetail = ({
           <View style={{ flexDirection: "row" }}>
             <TouchableOpacity
               onPress={() =>
-                element?.nurseAppAcceControl
+                element?.nurseAppAccessControl
                   ? updateUserSuspend(element, false)
                   : updateUserSuspend(element, true)
               }
               style={{
-                backgroundColor: element?.nurseAppAcceControl
+                backgroundColor: element?.nurseAppAccessControl
                   ? "#006002"
                   : "red",
                 paddingHorizontal: 10,
@@ -139,7 +139,7 @@ const UserCardDetail = ({
               }}
             >
               <Text style={{ color: "#fff", fontWeight: "600", fontSize: 12 }}>
-                {element?.nurseAppAcceControl ? "Un-Suspend" : "Suspend"}
+                {element?.nurseAppAccessControl ? "Un-Suspend" : "Suspend"}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity

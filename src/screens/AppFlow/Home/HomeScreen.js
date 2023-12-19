@@ -6,7 +6,8 @@ import {
   Image,
   Platform,
   Alert,
-  Pressable
+  Pressable,
+  Linking
 } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import {
@@ -14,17 +15,24 @@ import {
   Organisation,
   FacilityTable,
   NurseTable,
+  JobPostingTable,
+  CustomerPatient,
+  ReleaseVersion,
+  JobTemplate,
 } from "../../../models";
 import { DataStore, SortDirection } from "aws-amplify";
 import * as Notifications from "expo-notifications";
 import { Ionicons } from "@expo/vector-icons";
 import * as Device from "expo-device";
 import OrganizationCard from "./Card/OrganizationCard";
+import Constants from "expo-constants";
+import moment from "moment";
 
 const HomeScreen = (props) => {
   console.log("HomeScreen", props?.userId);
   const [userId, setUserId] = useState(props?.userId);
   const [loading, setLoading] = useState(undefined);
+  const [releaseVersionNum, setReleaseVersionNum] = useState(undefined);
   const [organisationData, setOrganisationData] = useState(undefined);
   const [notificationData, setNotificationData] = useState(undefined);
   const responseListener = useRef();
@@ -113,6 +121,15 @@ const HomeScreen = (props) => {
       Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
+
+  const getReleaseDetail = async () => {
+    try {
+      const data = await DataStore.query(ReleaseVersion);
+      setReleaseVersionNum(data[0]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   //Organisation Detail
   const getOrganisationDetail = async (id) => {
@@ -209,6 +226,7 @@ const HomeScreen = (props) => {
 
   useEffect(() => {
     if (userId !== undefined) {
+      getReleaseDetail()
       getOrganisationDetail(userId);
       getOrganisationNotification(userId);
       registerForPushNotificationsAsync().then((token) => setToken(token));
@@ -333,6 +351,58 @@ const HomeScreen = (props) => {
     });
   };
 
+  const currentIOSVersion = Constants.manifest.version;
+
+  // const [data, setData] = useState(undefined)
+
+  // function GetDateMergedTime(date, time) {
+  //   const date1 = moment(date).format('YYYY-MM-DD')
+  //   const time1 = moment(time).format('hh:mm a')
+  //   const mergedTime = moment(`${date1} ${time1}`, `YYYY-MM-DD hh:mm a`);
+  //   return mergedTime
+  // }
+
+  // const getFacilityJob = async (id) => {
+  //   setData(undefined);
+  //   const itemArr = await DataStore.query(JobPostingTable);
+  //   setData(
+  //     itemArr.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+  //   );
+  // };
+
+  // const updateTimeJob = async (data, time) => {
+  //   const uJ = await DataStore.save(
+  //     JobPostingTable.copyOf(data, (updated) => {
+  //       updated.startDateTimeStamp = time.toString();
+  //     })
+  //   );
+  //   console.log(uJ.startDateTimeStamp)
+  // };
+  // const process = async (data) => {
+  //   const promises = [];
+  //   const list = [];
+  //   for (const item of data) {
+  //     list.push(item);
+  //   }
+  //   if (list.length > 0) {
+  //     for (const element of list) {
+  //       let startDateTimeStamp = GetDateMergedTime(element?.startDate, element?.startTime)
+  //       promises.push(updateTimeJob(element, startDateTimeStamp.valueOf()));
+  //     }
+  //   }
+
+  // };
+
+  // useEffect(() => {
+  //   getFacilityJob(data);
+  // }, []);
+
+  // useEffect(() => {
+  //   if (data !== undefined) {
+  //     process(data);
+  //   }
+  // }, [data]);
+
   return (
     <View style={styles.container}>
       {loadingScreen ? (
@@ -384,6 +454,52 @@ const HomeScreen = (props) => {
         </View>
       ) : (
         <View style={{ flex: 1 }}>
+          {
+            releaseVersionNum?.nursdCareIOS !== currentIOSVersion
+            &&
+            <View
+              style={{
+                marginTop: 10,
+                marginHorizontal: 20,
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center"
+              }}
+            >
+              <Text style={{ fontWeight: "700", fontSize: 18, color: "#006002" }}>
+                New version available{" "}
+              </Text>
+              <Pressable
+                style={{
+                  backgroundColor: "#006002",
+                  borderRadius: 5,
+                  height: 25,
+                  width: 100,
+                  marginTop: 10,
+                  justifyContent: "center",
+                }}
+                onPress={() => {
+                  Platform.OS === "android" ?
+                    Linking.openURL(
+                      "https://play.google.com/store/apps/details?id=com.nursd.NursdCare&hl=en_US"
+                    )
+                    : Linking.openURL(
+                      "https://apps.apple.com/in/app/nursdcare/id6449712416"
+                    )
+                }}
+              >
+                <Text
+                  style={{
+                    textAlign: "center",
+                    fontSize: 12,
+                    fontSize: 15,
+                    color: "#fff",
+                  }}
+                >
+                  {loadingBtn ? "Loading..." : "Update now"}
+                </Text>
+              </Pressable>
+            </View>}
           <View
             style={{
               marginTop: 10,

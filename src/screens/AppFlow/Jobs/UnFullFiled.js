@@ -10,7 +10,6 @@ import React, { useState, useEffect } from "react";
 import NewJobCard from "../Manage/Card/NewJobCard";
 import { JobPostingTable } from "../../../models";
 import { DataStore, SortDirection } from "aws-amplify";
-import { formatDate } from "../../../utils/function";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ActivityIndicator } from "react-native";
 
@@ -28,7 +27,7 @@ const UnFullFiled = (props) => {
   const [dateSort, setDateSort] = useState(null);
 
   useEffect(() => {
-    if (userId !== undefined) {
+    if (userId !== undefined && Platform.OS !== "web") {
       getFacilityJobTotal(userId);
     }
   }, [userId]);
@@ -56,22 +55,38 @@ const UnFullFiled = (props) => {
 
   const getFacilityJob = async (id, page) => {
     try {
-      const itemArr = await DataStore.query(
-        JobPostingTable,
-        (item) =>
-          item.and((c) => [
-            c.jobPostingTableFacilityTableId.eq(id),
-            c.jobType.eq("Shift"),
-            c.jobStatus.eq("Unfulfilled"),
-          ]),
-        {
-          sort: (s) => s.createdAt(SortDirection.DESCENDING),
-          page: page,
-          limit: 10,
-        }
-      );
-      const updatedData = [...data, ...itemArr];
-      setData(updatedData);
+      if (Platform.OS === "web") {
+        const itemArr = await DataStore.query(
+          JobPostingTable,
+          (item) =>
+            item.and((c) => [
+              c.jobPostingTableFacilityTableId.eq(id),
+              c.jobType.eq("Shift"),
+              c.jobStatus.eq("Unfulfilled"),
+            ]),
+          {
+            sort: (s) => s.startDateTimeStamp(SortDirection.DESCENDING)
+          }
+        );;
+        setData(itemArr);
+      } else {
+        const itemArr = await DataStore.query(
+          JobPostingTable,
+          (item) =>
+            item.and((c) => [
+              c.jobPostingTableFacilityTableId.eq(id),
+              c.jobType.eq("Shift"),
+              c.jobStatus.eq("Unfulfilled"),
+            ]),
+          {
+            sort: (s) => s.startDateTimeStamp(SortDirection.DESCENDING),
+            page: page,
+            limit: 10,
+          }
+        );
+        const updatedData = [...data, ...itemArr];
+        setData(updatedData);
+      }
       setLoading(false);
       setLoadingBottom(false);
     } catch (error) {
@@ -104,7 +119,7 @@ const UnFullFiled = (props) => {
 
   if (dateSort) {
     data?.sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
-  } else {
+  } else if (dateSort === false) {
     data?.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
   }
 
@@ -126,7 +141,7 @@ const UnFullFiled = (props) => {
       ) : (
         <ScrollView
           showsVerticalScrollIndicator={false}
-          onScrollEndDrag={handleScrollEnd}
+          onScrollEndDrag={Platform.OS !== "web" && handleScrollEnd}
         >
           {data?.length === 0 ? (
             <View

@@ -48,6 +48,9 @@ const FormScreen = (props) => {
           profileImage: "",
           organization: props?.route?.params?.data?.organization,
           location_id: props?.route?.params?.data?.location_id,
+          password: password,
+          facilityLoginControl: true,
+          facilityAppAccessControl: false
         })
       );
 
@@ -246,10 +249,10 @@ const FormScreen = (props) => {
                 : facilityState.name === "" ||
                   facilityState.emailId === "" ||
                   facilityState.password === ""
-                ? Alert.alert("Fill all required fields first")
-                : facilityState?.password?.length < 8
-                ? Alert.alert("At least enter 8 character")
-                : signUp(facilityState.emailId, facilityState.password)
+                  ? Alert.alert("Fill all required fields first")
+                  : facilityState?.password?.length < 8
+                    ? Alert.alert("At least enter 8 character")
+                    : signUp(facilityState.emailId, facilityState.password)
             }
             color={"#006002"}
           />

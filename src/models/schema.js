@@ -687,6 +687,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "active": {
+                    "name": "active",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -1540,6 +1547,13 @@ export const schema = {
                 },
                 "jobPostingTableFacilityTableId": {
                     "name": "jobPostingTableFacilityTableId",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "startDateTimeStamp": {
+                    "name": "startDateTimeStamp",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -2430,6 +2444,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "startDateTimeStamp": {
+                    "name": "startDateTimeStamp",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -2606,42 +2627,6 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "NurseTable": {
-                    "name": "NurseTable",
-                    "isArray": false,
-                    "type": {
-                        "model": "NurseTable"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "HAS_ONE",
-                        "associatedWith": [
-                            "id"
-                        ],
-                        "targetNames": [
-                            "chatHistoryTableNurseTableId"
-                        ]
-                    }
-                },
-                "FacilityTable": {
-                    "name": "FacilityTable",
-                    "isArray": false,
-                    "type": {
-                        "model": "FacilityTable"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "HAS_ONE",
-                        "associatedWith": [
-                            "id"
-                        ],
-                        "targetNames": [
-                            "chatHistoryTableFacilityTableId"
-                        ]
-                    }
-                },
                 "MessageItems": {
                     "name": "MessageItems",
                     "isArray": true,
@@ -2655,24 +2640,6 @@ export const schema = {
                         "connectionType": "HAS_MANY",
                         "associatedWith": [
                             "chathistorytableID"
-                        ]
-                    }
-                },
-                "LastMessageItem": {
-                    "name": "LastMessageItem",
-                    "isArray": false,
-                    "type": {
-                        "model": "MessageItem"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "HAS_ONE",
-                        "associatedWith": [
-                            "id"
-                        ],
-                        "targetNames": [
-                            "chatHistoryTableLastMessageItemId"
                         ]
                     }
                 },
@@ -2704,6 +2671,27 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "chatHistoryTableFacilityTableId": {
+                    "name": "chatHistoryTableFacilityTableId",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "chatHistoryTableNurseTableId": {
+                    "name": "chatHistoryTableNurseTableId",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "chatHistoryTableLastMessageItemId": {
+                    "name": "chatHistoryTableLastMessageItemId",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -2719,27 +2707,6 @@ export const schema = {
                     "isRequired": false,
                     "attributes": [],
                     "isReadOnly": true
-                },
-                "chatHistoryTableNurseTableId": {
-                    "name": "chatHistoryTableNurseTableId",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "chatHistoryTableFacilityTableId": {
-                    "name": "chatHistoryTableFacilityTableId",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "chatHistoryTableLastMessageItemId": {
-                    "name": "chatHistoryTableLastMessageItemId",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
                 }
             },
             "syncable": true,
@@ -2858,6 +2825,27 @@ export const schema = {
                     "name": "location_id",
                     "isArray": false,
                     "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "password": {
+                    "name": "password",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "facilityLoginControl": {
+                    "name": "facilityLoginControl",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "facilityAppAccessControl": {
+                    "name": "facilityAppAccessControl",
+                    "isArray": false,
+                    "type": "Boolean",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -3168,10 +3156,17 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "nurseAppAcceControl": {
-                    "name": "nurseAppAcceControl",
+                "nurseAppAccessControl": {
+                    "name": "nurseAppAccessControl",
                     "isArray": false,
                     "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "password": {
+                    "name": "password",
+                    "isArray": false,
+                    "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -3578,5 +3573,5 @@ export const schema = {
         }
     },
     "codegenVersion": "3.4.0",
-    "version": "4998d0b77bcbb6eb63f91f1585c30dab"
+    "version": "0e8d9c6f71a758cd2d9001e118e5ed4a"
 };
