@@ -4,6 +4,20 @@ import { LazyLoading, LazyLoadingDisabled, AsyncItem, AsyncCollection } from "@a
 
 
 
+type EagerReasonObj = {
+  readonly reason?: string | null;
+  readonly reasonCode?: string | null;
+}
+
+type LazyReasonObj = {
+  readonly reason?: string | null;
+  readonly reasonCode?: string | null;
+}
+
+export declare type ReasonObj = LazyLoading extends LazyLoadingDisabled ? EagerReasonObj : LazyReasonObj
+
+export declare const ReasonObj: (new (init: ModelInit<ReasonObj>) => ReasonObj)
+
 type EagerNurseCancelObject = {
   readonly nurseId?: string | null;
   readonly nurseName?: string | null;
@@ -145,6 +159,36 @@ type LazyCertificationDetail = {
 export declare type CertificationDetail = LazyLoading extends LazyLoadingDisabled ? EagerCertificationDetail : LazyCertificationDetail
 
 export declare const CertificationDetail: (new (init: ModelInit<CertificationDetail>) => CertificationDetail)
+
+type EagerReasonTable = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<ReasonTable, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly nurseReasons?: (ReasonObj | null)[] | null;
+  readonly facilityReasons?: (ReasonObj | null)[] | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyReasonTable = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<ReasonTable, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly nurseReasons?: (ReasonObj | null)[] | null;
+  readonly facilityReasons?: (ReasonObj | null)[] | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type ReasonTable = LazyLoading extends LazyLoadingDisabled ? EagerReasonTable : LazyReasonTable
+
+export declare const ReasonTable: (new (init: ModelInit<ReasonTable>) => ReasonTable) & {
+  copyOf(source: ReasonTable, mutator: (draft: MutableModel<ReasonTable>) => MutableModel<ReasonTable> | void): ReasonTable;
+}
 
 type EagerReleaseVersion = {
   readonly [__modelMeta__]: {
@@ -885,14 +929,16 @@ type EagerJobPostingTable = {
   readonly EMRorEHRExperience?: (string | null)[] | null;
   readonly noShowReason?: string | null;
   readonly noShowReasonAttachment?: string | null;
+  readonly noShowComments?: string | null;
   readonly neverCheckOutReason?: string | null;
   readonly neverCheckOutReasonAttachment?: string | null;
+  readonly neverCheckOutComments?: string | null;
   readonly pendingOrNoShowFacilityDecideMessage?: string | null;
   readonly pendingOrNoShowFacilityDecideStatus?: boolean | null;
-  readonly certificationRequired?: boolean | null;
   readonly specialtyRequired?: boolean | null;
   readonly experienceRequired?: boolean | null;
   readonly emrehrRequired?: boolean | null;
+  readonly certificationRequired?: boolean | null;
   readonly customerVisibility?: boolean | null;
   readonly organization?: string | null;
   readonly location_id?: string | null;
@@ -900,8 +946,8 @@ type EagerJobPostingTable = {
   readonly total_payment?: string | null;
   readonly nurseCancelNotes?: (NurseCancelObject | null)[] | null;
   readonly nurseSwapNotes?: string | null;
-  readonly baseRateVisibility?: boolean | null;
   readonly jobPostingTableFacilityTableId?: string | null;
+  readonly baseRateVisibility?: boolean | null;
   readonly manager_review_comments?: string | null;
   readonly approved_manager?: string | null;
   readonly closed_by?: string | null;
@@ -916,6 +962,10 @@ type EagerJobPostingTable = {
   readonly checkOutLatitudeNurse?: string | null;
   readonly checkOutLongitudeNurse?: string | null;
   readonly startDateTimeStamp?: string | null;
+  readonly noShowManagerReason?: string | null;
+  readonly noShowManagerReasonAttachment?: string | null;
+  readonly neverCheckOutManagerReason?: string | null;
+  readonly neverCheckOutManagerReasonAttachment?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -969,14 +1019,16 @@ type LazyJobPostingTable = {
   readonly EMRorEHRExperience?: (string | null)[] | null;
   readonly noShowReason?: string | null;
   readonly noShowReasonAttachment?: string | null;
+  readonly noShowComments?: string | null;
   readonly neverCheckOutReason?: string | null;
   readonly neverCheckOutReasonAttachment?: string | null;
+  readonly neverCheckOutComments?: string | null;
   readonly pendingOrNoShowFacilityDecideMessage?: string | null;
   readonly pendingOrNoShowFacilityDecideStatus?: boolean | null;
-  readonly certificationRequired?: boolean | null;
   readonly specialtyRequired?: boolean | null;
   readonly experienceRequired?: boolean | null;
   readonly emrehrRequired?: boolean | null;
+  readonly certificationRequired?: boolean | null;
   readonly customerVisibility?: boolean | null;
   readonly organization?: string | null;
   readonly location_id?: string | null;
@@ -984,8 +1036,8 @@ type LazyJobPostingTable = {
   readonly total_payment?: string | null;
   readonly nurseCancelNotes?: (NurseCancelObject | null)[] | null;
   readonly nurseSwapNotes?: string | null;
-  readonly baseRateVisibility?: boolean | null;
   readonly jobPostingTableFacilityTableId?: string | null;
+  readonly baseRateVisibility?: boolean | null;
   readonly manager_review_comments?: string | null;
   readonly approved_manager?: string | null;
   readonly closed_by?: string | null;
@@ -1000,6 +1052,10 @@ type LazyJobPostingTable = {
   readonly checkOutLatitudeNurse?: string | null;
   readonly checkOutLongitudeNurse?: string | null;
   readonly startDateTimeStamp?: string | null;
+  readonly noShowManagerReason?: string | null;
+  readonly noShowManagerReasonAttachment?: string | null;
+  readonly neverCheckOutManagerReason?: string | null;
+  readonly neverCheckOutManagerReasonAttachment?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

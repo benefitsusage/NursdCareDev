@@ -4,9 +4,10 @@ import { schema } from './schema';
 
 
 
-const { ReleaseVersion, ReferencesDetailNurse, DocumentDetailsNurse, OrganisationNotificationTable, Organisation, CustomerPatient, FacilityNotificationTable, NurseNotificationTable, TimeOffFacility, TimeOffNurse, JobTemplate, QuestionMessageItem, AskQuestionTable, JobBitTable, JobPostingTable, MessageItem, ChatHistoryTable, FacilityTable, NurseTable, UserTable, NurseCancelObject, LocationsDetails, JobPreferences, UploadDocument, WorkExperienceDetail, EducationDetail, CertificationDetail } = initSchema(schema);
+const { ReasonTable, ReleaseVersion, ReferencesDetailNurse, DocumentDetailsNurse, OrganisationNotificationTable, Organisation, CustomerPatient, FacilityNotificationTable, NurseNotificationTable, TimeOffFacility, TimeOffNurse, JobTemplate, QuestionMessageItem, AskQuestionTable, JobBitTable, JobPostingTable, MessageItem, ChatHistoryTable, FacilityTable, NurseTable, UserTable, ReasonObj, NurseCancelObject, LocationsDetails, JobPreferences, UploadDocument, WorkExperienceDetail, EducationDetail, CertificationDetail } = initSchema(schema);
 
 export {
+  ReasonTable,
   ReleaseVersion,
   ReferencesDetailNurse,
   DocumentDetailsNurse,
@@ -27,6 +28,7 @@ export {
   FacilityTable,
   NurseTable,
   UserTable,
+  ReasonObj,
   NurseCancelObject,
   LocationsDetails,
   JobPreferences,

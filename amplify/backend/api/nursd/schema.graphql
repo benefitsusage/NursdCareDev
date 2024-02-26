@@ -1,3 +1,14 @@
+type ReasonObj {
+  reason: String
+  reasonCode: String
+}
+
+type ReasonTable @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  nurseReasons: [ReasonObj]
+  facilityReasons: [ReasonObj]
+}
+
 type ReleaseVersion @model @auth(rules: [{allow: public}]) {
   id: ID!
   nursdConnectIOS: String
@@ -275,14 +286,16 @@ type JobPostingTable @model @auth(rules: [{allow: public}]) {
   EMRorEHRExperience: [String]
   noShowReason: String
   noShowReasonAttachment: String
+  noShowComments: String
   neverCheckOutReason: String
   neverCheckOutReasonAttachment: String
+  neverCheckOutComments: String
   pendingOrNoShowFacilityDecideMessage: String
   pendingOrNoShowFacilityDecideStatus: Boolean
-  certificationRequired: Boolean
   specialtyRequired: Boolean
   experienceRequired: Boolean
   emrehrRequired: Boolean
+  certificationRequired: Boolean
   customerVisibility: Boolean
   organization: String
   location_id: String
@@ -290,8 +303,8 @@ type JobPostingTable @model @auth(rules: [{allow: public}]) {
   total_payment: String
   nurseCancelNotes: [NurseCancelObject]
   nurseSwapNotes: String
-  baseRateVisibility: Boolean
   jobPostingTableFacilityTableId: String
+  baseRateVisibility: Boolean
   manager_review_comments: String
   approved_manager: String
   closed_by: String
@@ -306,6 +319,10 @@ type JobPostingTable @model @auth(rules: [{allow: public}]) {
   checkOutLatitudeNurse: String
   checkOutLongitudeNurse: String
   startDateTimeStamp: String
+  noShowManagerReason: String
+  noShowManagerReasonAttachment: String
+  neverCheckOutManagerReason: String
+  neverCheckOutManagerReasonAttachment: String
 }
 
 type MessageItem @model @auth(rules: [{allow: public}]) {

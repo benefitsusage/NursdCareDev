@@ -1,5 +1,77 @@
 export const schema = {
     "models": {
+        "ReasonTable": {
+            "name": "ReasonTable",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "nurseReasons": {
+                    "name": "nurseReasons",
+                    "isArray": true,
+                    "type": {
+                        "nonModel": "ReasonObj"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
+                "facilityReasons": {
+                    "name": "facilityReasons",
+                    "isArray": true,
+                    "type": {
+                        "nonModel": "ReasonObj"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "ReasonTables",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
         "ReleaseVersion": {
             "name": "ReleaseVersion",
             "fields": {
@@ -2231,6 +2303,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "noShowComments": {
+                    "name": "noShowComments",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "neverCheckOutReason": {
                     "name": "neverCheckOutReason",
                     "isArray": false,
@@ -2245,6 +2324,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "neverCheckOutComments": {
+                    "name": "neverCheckOutComments",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "pendingOrNoShowFacilityDecideMessage": {
                     "name": "pendingOrNoShowFacilityDecideMessage",
                     "isArray": false,
@@ -2254,13 +2340,6 @@ export const schema = {
                 },
                 "pendingOrNoShowFacilityDecideStatus": {
                     "name": "pendingOrNoShowFacilityDecideStatus",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "certificationRequired": {
-                    "name": "certificationRequired",
                     "isArray": false,
                     "type": "Boolean",
                     "isRequired": false,
@@ -2282,6 +2361,13 @@ export const schema = {
                 },
                 "emrehrRequired": {
                     "name": "emrehrRequired",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "certificationRequired": {
+                    "name": "certificationRequired",
                     "isArray": false,
                     "type": "Boolean",
                     "isRequired": false,
@@ -2339,17 +2425,17 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "baseRateVisibility": {
-                    "name": "baseRateVisibility",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "jobPostingTableFacilityTableId": {
                     "name": "jobPostingTableFacilityTableId",
                     "isArray": false,
                     "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "baseRateVisibility": {
+                    "name": "baseRateVisibility",
+                    "isArray": false,
+                    "type": "Boolean",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -2446,6 +2532,34 @@ export const schema = {
                 },
                 "startDateTimeStamp": {
                     "name": "startDateTimeStamp",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "noShowManagerReason": {
+                    "name": "noShowManagerReason",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "noShowManagerReasonAttachment": {
+                    "name": "noShowManagerReasonAttachment",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "neverCheckOutManagerReason": {
+                    "name": "neverCheckOutManagerReason",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "neverCheckOutManagerReasonAttachment": {
+                    "name": "neverCheckOutManagerReasonAttachment",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -3281,6 +3395,25 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {
+        "ReasonObj": {
+            "name": "ReasonObj",
+            "fields": {
+                "reason": {
+                    "name": "reason",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "reasonCode": {
+                    "name": "reasonCode",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            }
+        },
         "NurseCancelObject": {
             "name": "NurseCancelObject",
             "fields": {
@@ -3573,5 +3706,5 @@ export const schema = {
         }
     },
     "codegenVersion": "3.4.0",
-    "version": "0e8d9c6f71a758cd2d9001e118e5ed4a"
+    "version": "8b3cb7d13c06181db517ef8114a3ea2b"
 };
